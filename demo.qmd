@@ -1,0 +1,55 @@
+---
+format:
+    dashboard:
+        orientation: columns
+        scrolling: true
+---
+
+data = FileAttachment("data/ContinenteDistritos_geo_geojson").json()
+tbl = FileAttachment("data/legislativas_raw.json").json()
+
+html`<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />`
+
+mapDiv = html`<div style="height: 400px;"></div>`
+
+const map = L.map(mapDiv, {
+    zoomControl: false,
+    dragging: false,
+    scrollWheelZoom: false
+});
+
+L.tileLayer('https://{s}.title.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+const distritos = L.geoJSON(data, {
+    style: {color: "#4b4b4bff", fillOpacity: 0.2},
+    onEachFeature: (feat, layer) => {
+        layer.bindTooltip(feat.properties.Distrito, {sticky: true});
+    }
+}).addTo(map);
+
+style: (feat) => {
+    const distrito = feat.properties.Distrito;
+    const vencedor = votosPorDistrito(distrito)[0]?.partido;
+    return {
+        fillColor: getPartyColors()[vencedor] || "#b3afafab",
+        fillOpacity: 0.7
+    };
+}
+
+mutable selectedDistrito = "Aveiro";
+
+layer.on("click", () => {
+    mutable selectedDistrito = nome;
+});
+Inputs.table(votosPorDistrito(selectedDistrito), {
+    columns: ["partido", "votos"]
+});
+
+style: (feat) => {
+    const distrito = feat.properties.Distrito;
+    const intensidade = calcularIntensidade(selectedDistrito, distrito);
+
+    return {
+        fillColor: getPartyColors()
+    }
+}
