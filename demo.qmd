@@ -8,11 +8,11 @@ data = FileAttachment("data/ContinenteDistritos_geo.geojson").json()
 rawData = FileAttachment("data/legislativas_raw.json").json()
 tbl = cleanElectionData(rawData)
 
-html`<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />`
+ html`<link rel="stylesheet" href="https:/unpkg.com/leaflet@1.9.4/dist/leaflet.css" >`
 
 mapDiv = html`<div style="height: 400px;"></div>`
 
-map = L.map(mapDiv, {
+const map = L.map(mapDiv, {
     zoomControl: false,
     dragging: false,
     scrollWheelZoom: false
@@ -20,31 +20,26 @@ map = L.map(mapDiv, {
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-mutable selectedDistrito = "Aveiro";
-
-distritos = L.geoJSON(data, {
+const distritos = L.geoJSON(data, {
     style: (feat) => {
         const distrito = feat.properties.Distrito;
         const vencedor = votosPorDistrito(distrito)[0]?.partido;
-        const intensidade = calcularIntensidade(selectedDistrito, distrito);
-
         return {
-            fillColor: getPartyColors()[vencedor] ?? "#b3afafab",
-            fillOpacity: intensidade,
+            fillColor: getPartyColors()[vencedor] || "#b3afafab",
+            fillOpacity: 0.7,
             color: "#4b4b4b",
             weight: 1
         };
     },
 
     onEachFeature: (feat, layer) => {
-        layer.bindTooltip(feat.properties.Distrito, {sticky: true });
+        layer.bindTooltip(feat.properties.Distrito, {sticky: true});
 
         layer.on("click", () => {
             selectedDistrito = feat.properties.Distrito;
         });
     }
 }).addTo(map);
-
 
 Inputs.table(votosPorDistrito(selectedDistrito), {
     columns: ["partido", "votos"]
@@ -101,10 +96,6 @@ function partyVotesByDistrict(partido) {
         result.push({distrito, votos});
     }
     return result.sort((a, b) => b.votos - a.votos);
-}
-
-function calcularIntensidade(selected, current) {
-    return selected === current ? 1 : 0.5;
 }
 
 function encontrarMenorAbstencao() {
