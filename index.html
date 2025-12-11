@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Data Visualization</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Election Data Visualization</h1>
+        
+        <!-- Map container -->
+        <div id="map"></div>
+        
+        <!-- Data display area -->
+        <div id="data-display">
+            <h2>Cleaned Data</h2>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Your existing JavaScript file -->
+    <script src="js/organizeJson.js"></script>
+    
+<body>
+    <div class="container">
+        <h1>Organizador de Dados Eleitorais</h1>
+        <button id="processBtn">⬇️ Baixar legislativas_cleaned.json</button>
+    </div>
+
+    <!-- Your existing JavaScript file -->
+    <script src="js/organizeJson.js"></script>
+    
+    <!-- Main application script -->
+ <script>
+        document.getElementById('processBtn').onclick = function() {
+            fetch("data/legislativas_raw.json")
+                .then(response => {
+                    return response.text();
+                })
+                .then(text => {
+                    // Tenta corrigir o JSON se necessário
+                    let jsonData;
+                    
+                    try {
+                        // Tenta parse como JSON normal
+                        jsonData = JSON.parse(text);
+                    } catch (e) {
+                        // Se falhar, tenta corrigir adicionando colchetes
+                        console.log("Tentando corrigir JSON mal formatado...");       
+                    }
+                    
+                    // Clean the data using your existing function
+                    const cleaned = cleanElectionData(jsonData);
+                    
+                    // Create JSON string
+                    const jsonString = JSON.stringify(cleaned, null, 2);
+                    
+                    // Create and trigger download
+                    const blob = new Blob([jsonString], { type: "application/json" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "legislativas1.json";
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    alert('JSON baixado com sucesso!');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    const errorDiv = document.getElementById('errorMessage');
+                    errorDiv.textContent = 'Erro: ' + error.message;
+                    errorDiv.style.display = 'block';
+                });
+        };
+    </script>
+</body>
+</html>

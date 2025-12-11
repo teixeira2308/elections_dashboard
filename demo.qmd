@@ -1,14 +1,16 @@
 ---
-title: "Untitled"
-format: html
+format:
+    dashboard:
+        orientation: columns
+        scrolling: true
 ---
 
 ```{ojs}
+// Carrega o json original
 data = FileAttachment("data/ContinenteDistritos_geo.geojson").json()
-rawData = FileAttachment("data/legislativas_raw.json").json()
-tbl = cleanElectionData(rawData)
+tbl = FileAttachment("data/legislativas1.json").json()
 
- html`<link rel="stylesheet" href="https:/unpkg.com/leaflet@1.9.4/dist/leaflet.css" >`
+html`<link rel="stylesheet" href="https: /unpkg.com/leaflet@1.9.4/dist/leaflet.css" >`
 
 mapDiv = html`<div style="height: 400px;"></div>`
 
@@ -18,55 +20,37 @@ const map = L.map(mapDiv, {
     scrollWheelZoom: false
 });
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.tileLayer('https: /{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 const distritos = L.geoJSON(data, {
-    style: (feat) => {
-        const distrito = feat.properties.Distrito;
-        const vencedor = votosPorDistrito(distrito)[0]?.partido;
-        return {
-            fillColor: getPartyColors()[vencedor] || "#b3afafab",
-            fillOpacity: 0.7,
-            color: "#4b4b4b",
-            weight: 1
-        };
-    },
-
+    style: { color: "#4b4b4bff", fillOpacity: 0.2 },
     onEachFeature: (feat, layer) => {
-        layer.bindTooltip(feat.properties.Distrito, {sticky: true});
-
-        layer.on("click", () => {
-            selectedDistrito = feat.properties.Distrito;
-        });
+        layer.bindTooltip(feat.properties.Distrito, { sticky: true });
     }
 }).addTo(map);
 
-Inputs.table(votosPorDistrito(selectedDistrito), {
-    columns: ["partido", "votos"]
-});
-
-function cleanElectionData(rawData) {
-    const cleaned = {"Inscritos": {}, "Votantes": {}};
-    rawData.forEach(row => {
-        const district = row["Círculo"];
-        if (district && district !== "Total") {
-            cleaned["Inscritos"][district] = parseInt(row["Inscritos"]);
-
-        }
-    });
-}
-
-
 function getPartyColors() {
     return {
-        "PS": "#ff0000",
+        "PS": "#ff0000",         
         "PPD/PSD.CDS-PP": "#ff9900",
-        "CH": "#0000ff",
-        "IL": "#00ffff",
-        "B.E.": "#ff00ff",
-        "PCP-PEV": "#008000",
-        "L": "#800080",
-        "PAN": "#00ff00"
+        "CH": "#0000ff",        
+        "IL": "#00ffff",         
+        "B.E.": "#ff00ff",     
+        "PCP-PEV": "#008000",      
+        "L": "#800080",          
+        "PAN": "#00ff00",         
+        "ADN": "#8B4513",        
+        "R.I.R.": "#FFD700",     
+        "VP": "#FF69B4",          
+        "JPP": "#00BFFF",        
+        "E": "#A52A2A",       
+        "PPM": "#4682B4",          
+        "NC": "#FF4500",          
+        "ND": "#2E8B57",           
+        "PCTP/MRPP": "#DC143C",   
+        "PLS": "#DAA520",        
+        "MPT": "#32CD32",        
+        "PTP": "#8A2BE2"          
     };
 }
 
@@ -77,55 +61,9 @@ function votosPorDistrito(distritoNome) {
         if (partido !== "Inscritos" && partido !== "Votantes") {
             const votos = distritos[distritoNome];
             if (votos !== undefined) {
-                result.push({partido, votos});
+                result.push({ partido, votos });
             }
         }
     }
     return result.sort((a,b) => b.votos - a.votos);
 }
-
-function getPartidos() {
-    return Object.keys(tbl).filter(partido => partido !== "Inscritos" && partido !== "Votantes");
-}
-
-function partyVotesByDistrict(partido) {
-    const result = [];
-    const dadosPartido = tbl[partido];
-
-    for (const [distrito, votos] of Object.entries(dadosPartido)) {
-        result.push({distrito, votos});
-    }
-    return result.sort((a, b) => b.votos - a.votos);
-}
-
-function encontrarMenorAbstencao() {
-    let menorTaxa = 100;
-    let distritoMenor = "";
-
-    for (const [distrito, inscritos] of Object.entries(tbl.Inscritos)) {
-        if (distrito !== "Total") {
-            const taxa = 100 - (tbl.Votantes[distrito] / inscritos * 100);
-            if (taxa < menorTaxa) {
-                menorTaxa = taxa;
-                distritoMenor = distrito;
-            }
-        }
-    }
-    return distritoMenor;
-}
-
-function convertByParty() {
-    const root = {name: "Portugal", children: [] };
-
-    getPartidos().forEach(partido => {
-        const partidoNode = { name: partido, children: [] };
-
-        for (const [distrito, votos] of Object.entries(tbl[partido])) {
-            partidoNode.children.push({ name: distrito, value: votos });
-        }
-
-        root.children.push(partidoNode);
-    });
-    return root;
-}
-```
