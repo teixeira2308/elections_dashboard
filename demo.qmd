@@ -23,7 +23,15 @@ const map = L.map(mapDiv, {
 L.tileLayer('https: /{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 const distritos = L.geoJSON(data, {
-    style: { color: "#4b4b4bff", fillOpacity: 0.2 },
+    style: (feat) => {
+        const distrito = feat.properties.Distrito;
+        const vencedor = votosPorDistrito(distrito)[0]?.partido;
+        const intensidade = calcularIntensidade(selectedPartido, distrito);
+        return {
+            fillColor: getPartyColors()[selectedPartido],
+            fillOpacity: Math.max(0.1, intensidade * 0.8)
+        };
+    }
     onEachFeature: (feat, layer) => {
         layer.bindTooltip(feat.properties.Distrito, { sticky: true });
     }
@@ -66,4 +74,59 @@ function votosPorDistrito(distritoNome) {
         }
     }
     return result.sort((a,b) => b.votos - a.votos);
+}
+
+mutable selectedDistrito = "Aveiro";
+
+layer.on("click", () => {
+    mutable selectedDistrito = nome;
+});
+
+Inputs.table(votosPorDistrito(selectedDistrito), {
+    columns: ["partido", "votos"]
+});
+
+fuction getPartido() {
+    return Object.keys(tbl).filter(partido => 
+        partido !== "Inscritos" && partido !== "Votantes"
+    );
+}
+
+viewof selectedPartido = Inputs.select(getPartidos(), {
+    label: "Selecionar Partido"
+});
+
+function partyVotesByDistrict(partido) {
+    const result = [];
+    const dadosPartido = tbl[partido];
+
+    for (const [distrito, votos] of Object.entries(dadosPartido)) {
+        result.push({ distrito, votos });
+
+    }
+    return result.sort((a, b) => b.votos - a.votos);
+}
+
+function calcularIntensidade(partido, distrito) {
+    const votosPartido = tbl[partido]?.[distrito] || 0;
+    const votosDistrito = tbl["Votantes"]?.[distrito] || 1;
+    return votosPartido / votosDistrito;
+}
+
+const abstencao = 100 - (tbl.Votantes.Total / tbl.Inscritos.Total * 100);
+
+function encontrarMenorAbstencao() {
+    let menorTaxa = 100;
+    let distritoMenor = "";
+
+    for (const [distrito, inscritos] of Object.entries(tbl.Inscritos)) {
+        if (distrito !== "Total") {
+            const taxa = 100 - (tbl.Votantes[distrito] / inscritos * 100);
+            if (taxa < menorTaxa) {
+                menorTaxa = taxa;
+                distritoMenor = distrito;
+            }
+        }
+    }
+    return distritoMenor;
 }
