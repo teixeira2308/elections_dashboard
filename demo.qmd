@@ -4,8 +4,6 @@ format:
     dashboard:
         orientation: columns
         scrolling: true
-
-        
 ---
 
 
@@ -42,19 +40,18 @@ distritos = L.geoJSON(data, {
         const intensidade = calcularIntensidade(selectedPartido, distrito);
         return {
             fillColor: getPartyColors()[selectedPartido],
-            fillOpacity: Math.max(0.1, intensidade * 0.8)
+            fillOpacity: Math.max(0.1, intensidade)
         };
     },
     onEachFeature: (feat, layer) => {
-        const nome = feat.properties.Distrito;
-        layer.bindTooltip(feat.properties.Distrito, { sticky: true }),
+        var nome = feat.properties.Distrito;
+        console.log("Nome do distrito123:", nome);
+        layer.bindTooltip(feat.properties.Distrito, { sticky: true });
         layer.on("click", () => {
             mutable selectedDistrito = nome;
-});
-    
+        });
     }
 }).addTo(map);
-
 function getPartyColors() {
     return {
         "PS": "#ff0000",         
@@ -82,7 +79,6 @@ function getPartyColors() {
 
 function votosPorDistrito(distritoNome) {
     const result = [];
-
     for (const [partido, distritos] of Object.entries(tbl)) {
         if (partido !== "Inscritos" && partido !== "Votantes") {
             const votos = distritos[distritoNome];
@@ -95,9 +91,6 @@ function votosPorDistrito(distritoNome) {
 }
 
 mutable selectedDistrito = "Aveiro";
-
-
-
 
 Inputs.table(votosPorDistrito(selectedDistrito), {
     columns: ["partido", "votos"]
