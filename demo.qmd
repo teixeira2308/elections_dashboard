@@ -1,28 +1,41 @@
 ---
+title: "Portugal - Legislativas 2025"
 format:
     dashboard:
         orientation: columns
         scrolling: true
+
+        
 ---
 
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+
 ```{ojs}
-// Carrega o json original
+
 data = FileAttachment("data/ContinenteDistritos_geo.geojson").json()
 tbl = FileAttachment("data/legislativas1.json").json()
 
-html`<link rel="stylesheet" href="https: /unpkg.com/leaflet@1.9.4/dist/leaflet.css" >`
-
 mapDiv = html`<div style="height: 400px;"></div>`
 
-const map = L.map(mapDiv, {
-    zoomControl: false,
-    dragging: false,
-    scrollWheelZoom: false
-});
+map = L.map(mapDiv, {
+    zoomControl: true,
+    dragging: true,
+    scrollWheelZoom: true
+}).setView([39.752, -9.1], 6);
 
-L.tileLayer('https: /{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-const distritos = L.geoJSON(data, {
+distritos = L.geoJSON(data, {
     style: (feat) => {
         const distrito = feat.properties.Distrito;
         const vencedor = votosPorDistrito(distrito)[0]?.partido;
@@ -31,9 +44,14 @@ const distritos = L.geoJSON(data, {
             fillColor: getPartyColors()[selectedPartido],
             fillOpacity: Math.max(0.1, intensidade * 0.8)
         };
-    }
+    },
     onEachFeature: (feat, layer) => {
-        layer.bindTooltip(feat.properties.Distrito, { sticky: true });
+        const nome = feat.properties.Distrito;
+        layer.bindTooltip(feat.properties.Distrito, { sticky: true }),
+        layer.on("click", () => {
+            mutable selectedDistrito = nome;
+});
+    
     }
 }).addTo(map);
 
@@ -78,15 +96,14 @@ function votosPorDistrito(distritoNome) {
 
 mutable selectedDistrito = "Aveiro";
 
-layer.on("click", () => {
-    mutable selectedDistrito = nome;
-});
+
+
 
 Inputs.table(votosPorDistrito(selectedDistrito), {
     columns: ["partido", "votos"]
 });
 
-fuction getPartido() {
+function getPartidos() {
     return Object.keys(tbl).filter(partido => 
         partido !== "Inscritos" && partido !== "Votantes"
     );
@@ -113,7 +130,7 @@ function calcularIntensidade(partido, distrito) {
     return votosPartido / votosDistrito;
 }
 
-const abstencao = 100 - (tbl.Votantes.Total / tbl.Inscritos.Total * 100);
+abstencao = 100 - (tbl.Votantes.Total / tbl.Inscritos.Total * 100);
 
 function encontrarMenorAbstencao() {
     let menorTaxa = 100;
@@ -130,3 +147,4 @@ function encontrarMenorAbstencao() {
     }
     return distritoMenor;
 }
+```
