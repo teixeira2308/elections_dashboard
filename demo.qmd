@@ -23,35 +23,6 @@ format:
 data = FileAttachment("data/ContinenteDistritos_geo.geojson").json()
 tbl = FileAttachment("data/legislativas1.json").json()
 
-mapDiv = html`<div style="height: 400px;"></div>`
-
-map = L.map(mapDiv, {
-    zoomControl: true,
-    dragging: true,
-    scrollWheelZoom: true
-}).setView([39.752, -9.1], 6);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-distritos = L.geoJSON(data, {
-    style: (feat) => {
-        const distrito = feat.properties.Distrito;
-        const vencedor = votosPorDistrito(distrito)[0]?.partido;
-        const intensidade = calcularIntensidade(selectedPartido, distrito);
-        return {
-            fillColor: getPartyColors()[selectedPartido],
-            fillOpacity: Math.max(0.1, intensidade)
-        };
-    },
-    onEachFeature: (feat, layer) => {
-        const nome = feat.properties.Distrito;
-        layer.bindTooltip(feat.properties.Distrito, { sticky: true });
-        layer.on('click', () => {
-            mutable selectedDistrito = nome;
-        });
-    }
-}).addTo(map);
-
 function getPartyColors() {
     return {
         "PS": "#ff0000",         
@@ -89,16 +60,6 @@ function votosPorDistrito(distritoNome) {
     }
     return result.sort((a,b) => b.votos - a.votos);
 }
-
-viewof selectedPartido = Inputs.select(getPartidos(), {
-    label: "Selecionar Partido",
-});
-
-mutable selectedDistrito = "Total";
-
-Inputs.table(votosPorDistrito(selectedDistrito), {
-    columns: ["partido", "votos"]
-});
 
 function selectDistrito(selectedDistrito, distrito) {
     for (const [partido, distritos] of Object.entries(tbl)) {
@@ -151,4 +112,95 @@ function encontrarMenorAbstencao() {
     }
     return distritoMenor;
 }
+
+mapDiv1 = html`<div style="height: 400px;"></div>`
+
+map1 = L.map(mapDiv1, {
+    zoomControl: true,
+    dragging: true,
+    scrollWheelZoom: true
+}).setView([39.752, -9.1], 6);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map1);
+
+distritos1 = L.geoJSON(data, {
+    style: (feat) => {
+        const distrito = feat.properties.Distrito;
+        const vencedor = votosPorDistrito(distrito)[0]?.partido;
+        const cor = getPartyColors()[vencedor] || "#cccccc";
+        return {
+            fillColor: cor,
+            fillOpacity: 0.8,
+            color: '#ffffff',
+            opacity: 1
+        };
+    },
+    onEachFeature: (feat, layer) => {
+        const nome = feat.properties.Distrito;
+        const vencedor = votosPorDistrito(nome)[0]?.partido;
+        layer.bindTooltip(feat.properties.Distrito, { sticky: true });
+        layer.on('click', () => {
+            mutable selectedDistrito = nome;
+        });
+    }
+}).addTo(map1);
+```
+
+
+```{ojs}
+Inputs.table(votosPorDistrito(selectedDistrito), {
+    columns: ["partido", "votos"],
+    header: {
+        partido: "Partido",
+        votos: "Votos"
+    }
+});
+``` 
+
+```{ojs}
+
+mutable selectedDistrito = "Total";
+viewof selectedPartido = Inputs.select(getPartidos(), {
+    label: "Selecionar Partido",
+    value: "PPD/PSD.CDS-PP"
+});
+
+mapDiv2 = html`<div style="height: 400px;"></div>`
+
+map2 = L.map(mapDiv2, {
+    zoomControl: true,
+    dragging: true,
+    scrollWheelZoom: true
+}).setView([39.752, -9.1], 6);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map2);
+
+distritos2 = L.geoJSON(data, {
+    style: (feat) => {
+        const distrito = feat.properties.Distrito;
+        const intensidade = calcularIntensidade(selectedPartido, distrito);
+        const scaledIntensity = 0.3 + (intensidade * 3.5);
+        return {
+            fillColor: getPartyColors()[selectedPartido],
+            fillOpacity: Math.min(1.0, scaledIntensity),
+            weight: 2,
+            color: '#ffffff',
+            opacity: 1
+        };
+    },
+    onEachFeature: (feat, layer) => {
+        const nome = feat.properties.Distrito;
+        const votosPartido = tbl[selectedPartido]?.[nome] || 0;
+        layer.bindTooltip(feat.properties.Distrito, { sticky: true });
+    }
+}).addTo(map2);
+```
+```{ojs}
+Inputs.table(partyVotesByDistrict(selectedPartido), {
+    columns: ["distrito", "votos"],
+    header: {
+        distrito: "Distrito",
+        votos: "Votos"
+    }
+});
 ```

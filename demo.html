@@ -71,9 +71,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="demo_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="demo_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="demo_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="demo_files/libs/bootstrap/bootstrap-78b5adbbc375d7e18de0e8bd95e59b2b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="demo_files/libs/bootstrap/bootstrap-dark-78b5adbbc375d7e18de0e8bd95e59b2b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="demo_files/libs/bootstrap/bootstrap-78b5adbbc375d7e18de0e8bd95e59b2b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="demo_files/libs/bootstrap/bootstrap-890b18279d630a8af0357820e6fbb7bc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="demo_files/libs/bootstrap/bootstrap-dark-890b18279d630a8af0357820e6fbb7bc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="demo_files/libs/bootstrap/bootstrap-890b18279d630a8af0357820e6fbb7bc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="demo_files/libs/quarto-dashboard/quarto-dashboard.js"></script>
 <script src="demo_files/libs/quarto-dashboard/stickythead.js"></script>
 
@@ -115,22 +115,112 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""></p>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
-<div class="bslib-grid-item html-fill-item bslib-grid" data-layout="flow" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+<div class="bslib-grid-item html-fill-item bslib-grid" data-layout="flow" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
 <div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb1" data-startfrom="23" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 22;"><span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/ContinenteDistritos_geo.geojson"</span>)<span class="op">.</span><span class="fu">json</span>()</span>
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb1" data-startfrom="23" data-source-offset="-2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 22;"><span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/ContinenteDistritos_geo.geojson"</span>)<span class="op">.</span><span class="fu">json</span>()</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>tbl <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/legislativas1.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>mapDiv <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="height: 400px;"&gt;&lt;/div&gt;`</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>map <span class="op">=</span> L<span class="op">.</span><span class="fu">map</span>(mapDiv<span class="op">,</span> {</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">zoomControl</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">dragging</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scrollWheelZoom</span><span class="op">:</span> <span class="kw">true</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">setView</span>([<span class="fl">39.752</span><span class="op">,</span> <span class="op">-</span><span class="fl">9.1</span>]<span class="op">,</span> <span class="dv">6</span>)<span class="op">;</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>L<span class="op">.</span><span class="fu">tileLayer</span>(<span class="st">'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'</span>)<span class="op">.</span><span class="fu">addTo</span>(map)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getPartyColors</span>() {</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PS"</span><span class="op">:</span> <span class="st">"#ff0000"</span><span class="op">,</span>         </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PPD/PSD.CDS-PP"</span><span class="op">:</span> <span class="st">"#ff9900"</span><span class="op">,</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"CH"</span><span class="op">:</span> <span class="st">"#0000ff"</span><span class="op">,</span>        </span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"IL"</span><span class="op">:</span> <span class="st">"#00ffff"</span><span class="op">,</span>         </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"B.E."</span><span class="op">:</span> <span class="st">"#ff00ff"</span><span class="op">,</span>     </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PCP-PEV"</span><span class="op">:</span> <span class="st">"#008000"</span><span class="op">,</span>      </span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"L"</span><span class="op">:</span> <span class="st">"#800080"</span><span class="op">,</span>          </span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PAN"</span><span class="op">:</span> <span class="st">"#00ff00"</span><span class="op">,</span>         </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ADN"</span><span class="op">:</span> <span class="st">"#8B4513"</span><span class="op">,</span>        </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"R.I.R."</span><span class="op">:</span> <span class="st">"#FFD700"</span><span class="op">,</span>     </span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"VP"</span><span class="op">:</span> <span class="st">"#FF69B4"</span><span class="op">,</span>          </span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"JPP"</span><span class="op">:</span> <span class="st">"#00BFFF"</span><span class="op">,</span>        </span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"E"</span><span class="op">:</span> <span class="st">"#A52A2A"</span><span class="op">,</span>       </span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PPM"</span><span class="op">:</span> <span class="st">"#4682B4"</span><span class="op">,</span>          </span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"NC"</span><span class="op">:</span> <span class="st">"#FF4500"</span><span class="op">,</span>          </span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ND"</span><span class="op">:</span> <span class="st">"#2E8B57"</span><span class="op">,</span>           </span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PCTP/MRPP"</span><span class="op">:</span> <span class="st">"#DC143C"</span><span class="op">,</span>   </span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PLS"</span><span class="op">:</span> <span class="st">"#DAA520"</span><span class="op">,</span>        </span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">"MPT"</span><span class="op">:</span> <span class="st">"#32CD32"</span><span class="op">,</span>        </span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PTP"</span><span class="op">:</span> <span class="st">"#8A2BE2"</span>          </span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">votosPorDistrito</span>(distritoNome) {</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> result <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> [partido<span class="op">,</span> distritos] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(tbl)) {</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (partido <span class="op">!==</span> <span class="st">"Inscritos"</span> <span class="op">&amp;&amp;</span> partido <span class="op">!==</span> <span class="st">"Votantes"</span>) {</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> votos <span class="op">=</span> distritos[distritoNome]<span class="op">;</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (votos <span class="op">!==</span> <span class="kw">undefined</span>) {</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>                result<span class="op">.</span><span class="fu">push</span>({ partido<span class="op">,</span> votos })<span class="op">;</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span>b) <span class="kw">=&gt;</span> b<span class="op">.</span><span class="at">votos</span> <span class="op">-</span> a<span class="op">.</span><span class="at">votos</span>)<span class="op">;</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">selectDistrito</span>(selectedDistrito<span class="op">,</span> distrito) {</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> [partido<span class="op">,</span> distritos] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(tbl)) {</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (distrito <span class="op">==</span> distritos) {</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>            selectedDistrito <span class="op">=</span> distrito<span class="op">;</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>            <span class="fu">votosPorDistrito</span>(selectedDistrito)<span class="op">;</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>            selectedDistrito <span class="op">=</span> <span class="st">"Total"</span><span class="op">;</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>        } </span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getPartidos</span>() {</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(tbl)<span class="op">.</span><span class="fu">filter</span>(partido <span class="kw">=&gt;</span> </span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>        partido <span class="op">!==</span> <span class="st">"Inscritos"</span> <span class="op">&amp;&amp;</span> partido <span class="op">!==</span> <span class="st">"Votantes"</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">partyVotesByDistrict</span>(partido) {</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> result <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> dadosPartido <span class="op">=</span> tbl[partido]<span class="op">;</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> [distrito<span class="op">,</span> votos] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(dadosPartido)) {</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">push</span>({ distrito<span class="op">,</span> votos })<span class="op">;</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> b<span class="op">.</span><span class="at">votos</span> <span class="op">-</span> a<span class="op">.</span><span class="at">votos</span>)<span class="op">;</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calcularIntensidade</span>(partido<span class="op">,</span> distrito) {</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> votosPartido <span class="op">=</span> tbl[partido]<span class="op">?.</span>[distrito] <span class="op">||</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> votosDistrito <span class="op">=</span> tbl[<span class="st">"Votantes"</span>]<span class="op">?.</span>[distrito] <span class="op">||</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> votosPartido <span class="op">/</span> votosDistrito<span class="op">;</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>abstencao <span class="op">=</span> <span class="dv">100</span> <span class="op">-</span> (tbl<span class="op">.</span><span class="at">Votantes</span><span class="op">.</span><span class="at">Total</span> <span class="op">/</span> tbl<span class="op">.</span><span class="at">Inscritos</span><span class="op">.</span><span class="at">Total</span> <span class="op">*</span> <span class="dv">100</span>)<span class="op">;</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">encontrarMenorAbstencao</span>() {</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> menorTaxa <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> distritoMenor <span class="op">=</span> <span class="st">""</span><span class="op">;</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> [distrito<span class="op">,</span> inscritos] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(tbl<span class="op">.</span><span class="at">Inscritos</span>)) {</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (distrito <span class="op">!==</span> <span class="st">"Total"</span>) {</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> taxa <span class="op">=</span> <span class="dv">100</span> <span class="op">-</span> (tbl<span class="op">.</span><span class="at">Votantes</span>[distrito] <span class="op">/</span> inscritos <span class="op">*</span> <span class="dv">100</span>)<span class="op">;</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (taxa <span class="op">&lt;</span> menorTaxa) {</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>                menorTaxa <span class="op">=</span> taxa<span class="op">;</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>                distritoMenor <span class="op">=</span> distrito<span class="op">;</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> distritoMenor<span class="op">;</span></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>mapDiv1 <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="height: 400px;"&gt;&lt;/div&gt;`</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>map1 <span class="op">=</span> L<span class="op">.</span><span class="fu">map</span>(mapDiv1<span class="op">,</span> {</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>    <span class="dt">zoomControl</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>    <span class="dt">dragging</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scrollWheelZoom</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">setView</span>([<span class="fl">39.752</span><span class="op">,</span> <span class="op">-</span><span class="fl">9.1</span>]<span class="op">,</span> <span class="dv">6</span>)<span class="op">;</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>L<span class="op">.</span><span class="fu">tileLayer</span>(<span class="st">'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'</span>)<span class="op">.</span><span class="fu">addTo</span>(map1)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
 <div id="ojs-cell-1-1" data-nodetype="declaration" class="html-fill-item html-fill-container">
@@ -161,77 +251,11 @@ grid-auto-rows: minmax(0, 1fr);">
 </div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-5" data-nodetype="expression" class="html-fill-item html-fill-container">
+<div id="ojs-cell-1-5" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb2" data-startfrom="36" data-source-offset="-379"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 35;"><span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>distritos <span class="op">=</span> L<span class="op">.</span><span class="fu">geoJSON</span>(data<span class="op">,</span> {</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> (feat) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> distrito <span class="op">=</span> feat<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">Distrito</span><span class="op">;</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> vencedor <span class="op">=</span> <span class="fu">votosPorDistrito</span>(distrito)[<span class="dv">0</span>]<span class="op">?.</span><span class="at">partido</span><span class="op">;</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> intensidade <span class="op">=</span> <span class="fu">calcularIntensidade</span>(selectedPartido<span class="op">,</span> distrito)<span class="op">;</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>            <span class="dt">fillColor</span><span class="op">:</span> <span class="fu">getPartyColors</span>()[selectedPartido]<span class="op">,</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>            <span class="dt">fillOpacity</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="fl">0.1</span><span class="op">,</span> intensidade)</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        }<span class="op">;</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="dt">onEachFeature</span><span class="op">:</span> (feat<span class="op">,</span> layer) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> nome <span class="op">=</span> feat<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">Distrito</span><span class="op">;</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>        layer<span class="op">.</span><span class="fu">bindTooltip</span>(feat<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">Distrito</span><span class="op">,</span> { <span class="dt">sticky</span><span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>        layer<span class="op">.</span><span class="fu">on</span>(<span class="st">'click'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>            mutable selectedDistrito <span class="op">=</span> nome<span class="op">;</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        })<span class="op">;</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">addTo</span>(map)<span class="op">;</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getPartyColors</span>() {</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PS"</span><span class="op">:</span> <span class="st">"#ff0000"</span><span class="op">,</span>         </span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PPD/PSD.CDS-PP"</span><span class="op">:</span> <span class="st">"#ff9900"</span><span class="op">,</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>        <span class="st">"CH"</span><span class="op">:</span> <span class="st">"#0000ff"</span><span class="op">,</span>        </span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        <span class="st">"IL"</span><span class="op">:</span> <span class="st">"#00ffff"</span><span class="op">,</span>         </span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>        <span class="st">"B.E."</span><span class="op">:</span> <span class="st">"#ff00ff"</span><span class="op">,</span>     </span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PCP-PEV"</span><span class="op">:</span> <span class="st">"#008000"</span><span class="op">,</span>      </span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>        <span class="st">"L"</span><span class="op">:</span> <span class="st">"#800080"</span><span class="op">,</span>          </span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PAN"</span><span class="op">:</span> <span class="st">"#00ff00"</span><span class="op">,</span>         </span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ADN"</span><span class="op">:</span> <span class="st">"#8B4513"</span><span class="op">,</span>        </span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>        <span class="st">"R.I.R."</span><span class="op">:</span> <span class="st">"#FFD700"</span><span class="op">,</span>     </span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>        <span class="st">"VP"</span><span class="op">:</span> <span class="st">"#FF69B4"</span><span class="op">,</span>          </span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>        <span class="st">"JPP"</span><span class="op">:</span> <span class="st">"#00BFFF"</span><span class="op">,</span>        </span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>        <span class="st">"E"</span><span class="op">:</span> <span class="st">"#A52A2A"</span><span class="op">,</span>       </span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PPM"</span><span class="op">:</span> <span class="st">"#4682B4"</span><span class="op">,</span>          </span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>        <span class="st">"NC"</span><span class="op">:</span> <span class="st">"#FF4500"</span><span class="op">,</span>          </span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ND"</span><span class="op">:</span> <span class="st">"#2E8B57"</span><span class="op">,</span>           </span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PCTP/MRPP"</span><span class="op">:</span> <span class="st">"#DC143C"</span><span class="op">,</span>   </span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PLS"</span><span class="op">:</span> <span class="st">"#DAA520"</span><span class="op">,</span>        </span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>        <span class="st">"MPT"</span><span class="op">:</span> <span class="st">"#32CD32"</span><span class="op">,</span>        </span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PTP"</span><span class="op">:</span> <span class="st">"#8A2BE2"</span>          </span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">votosPorDistrito</span>(distritoNome) {</span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> result <span class="op">=</span> []<span class="op">;</span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> [partido<span class="op">,</span> distritos] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(tbl)) {</span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (partido <span class="op">!==</span> <span class="st">"Inscritos"</span> <span class="op">&amp;&amp;</span> partido <span class="op">!==</span> <span class="st">"Votantes"</span>) {</span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> votos <span class="op">=</span> distritos[distritoNome]<span class="op">;</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (votos <span class="op">!==</span> <span class="kw">undefined</span>) {</span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>                result<span class="op">.</span><span class="fu">push</span>({ partido<span class="op">,</span> votos })<span class="op">;</span></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span>b) <span class="kw">=&gt;</span> b<span class="op">.</span><span class="at">votos</span> <span class="op">-</span> a<span class="op">.</span><span class="at">votos</span>)<span class="op">;</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>viewof selectedPartido <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(<span class="fu">getPartidos</span>()<span class="op">,</span> {</span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"Selecionar Partido"</span><span class="op">,</span></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>mutable selectedDistrito <span class="op">=</span> <span class="st">"Total"</span><span class="op">;</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(<span class="fu">votosPorDistrito</span>(selectedDistrito)<span class="op">,</span> {</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    <span class="dt">columns</span><span class="op">:</span> [<span class="st">"partido"</span><span class="op">,</span> <span class="st">"votos"</span>]</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
 <div id="ojs-cell-1-6" data-nodetype="declaration" class="html-fill-item html-fill-container">
@@ -269,62 +293,11 @@ grid-auto-rows: minmax(0, 1fr);">
 </div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-11" data-nodetype="expression" class="html-fill-item html-fill-container">
+<div id="ojs-cell-1-11" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb3" data-startfrom="103" data-source-offset="-2414"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 102;"><span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">selectDistrito</span>(selectedDistrito<span class="op">,</span> distrito) {</span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> [partido<span class="op">,</span> distritos] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(tbl)) {</span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (distrito <span class="op">==</span> distritos) {</span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>            selectedDistrito <span class="op">=</span> distrito<span class="op">;</span></span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>            <span class="fu">votosPorDistrito</span>(selectedDistrito)<span class="op">;</span></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>            selectedDistrito <span class="op">=</span> <span class="st">"Total"</span><span class="op">;</span></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>        } </span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getPartidos</span>() {</span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(tbl)<span class="op">.</span><span class="fu">filter</span>(partido <span class="kw">=&gt;</span> </span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>        partido <span class="op">!==</span> <span class="st">"Inscritos"</span> <span class="op">&amp;&amp;</span> partido <span class="op">!==</span> <span class="st">"Votantes"</span></span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">partyVotesByDistrict</span>(partido) {</span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> result <span class="op">=</span> []<span class="op">;</span></span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> dadosPartido <span class="op">=</span> tbl[partido]<span class="op">;</span></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> [distrito<span class="op">,</span> votos] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(dadosPartido)) {</span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">push</span>({ distrito<span class="op">,</span> votos })<span class="op">;</span></span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> b<span class="op">.</span><span class="at">votos</span> <span class="op">-</span> a<span class="op">.</span><span class="at">votos</span>)<span class="op">;</span></span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calcularIntensidade</span>(partido<span class="op">,</span> distrito) {</span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> votosPartido <span class="op">=</span> tbl[partido]<span class="op">?.</span>[distrito] <span class="op">||</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> votosDistrito <span class="op">=</span> tbl[<span class="st">"Votantes"</span>]<span class="op">?.</span>[distrito] <span class="op">||</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> votosPartido <span class="op">/</span> votosDistrito<span class="op">;</span></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>abstencao <span class="op">=</span> <span class="dv">100</span> <span class="op">-</span> (tbl<span class="op">.</span><span class="at">Votantes</span><span class="op">.</span><span class="at">Total</span> <span class="op">/</span> tbl<span class="op">.</span><span class="at">Inscritos</span><span class="op">.</span><span class="at">Total</span> <span class="op">*</span> <span class="dv">100</span>)<span class="op">;</span></span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">encontrarMenorAbstencao</span>() {</span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> menorTaxa <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> distritoMenor <span class="op">=</span> <span class="st">""</span><span class="op">;</span></span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> [distrito<span class="op">,</span> inscritos] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(tbl<span class="op">.</span><span class="at">Inscritos</span>)) {</span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (distrito <span class="op">!==</span> <span class="st">"Total"</span>) {</span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> taxa <span class="op">=</span> <span class="dv">100</span> <span class="op">-</span> (tbl<span class="op">.</span><span class="at">Votantes</span>[distrito] <span class="op">/</span> inscritos <span class="op">*</span> <span class="dv">100</span>)<span class="op">;</span></span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (taxa <span class="op">&lt;</span> menorTaxa) {</span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>                menorTaxa <span class="op">=</span> taxa<span class="op">;</span></span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>                distritoMenor <span class="op">=</span> distrito<span class="op">;</span></span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> distritoMenor<span class="op">;</span></span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
 <div id="ojs-cell-1-12" data-nodetype="declaration" class="html-fill-item html-fill-container">
@@ -334,11 +307,33 @@ grid-auto-rows: minmax(0, 1fr);">
 </div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-13" data-nodetype="declaration" class="html-fill-item html-fill-container">
+<div id="ojs-cell-1-13" data-nodetype="expression" class="html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb2" data-startfrom="126" data-source-offset="-3103"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 125;"><span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>distritos1 <span class="op">=</span> L<span class="op">.</span><span class="fu">geoJSON</span>(data<span class="op">,</span> {</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> (feat) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> distrito <span class="op">=</span> feat<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">Distrito</span><span class="op">;</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> vencedor <span class="op">=</span> <span class="fu">votosPorDistrito</span>(distrito)[<span class="dv">0</span>]<span class="op">?.</span><span class="at">partido</span><span class="op">;</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> cor <span class="op">=</span> <span class="fu">getPartyColors</span>()[vencedor] <span class="op">||</span> <span class="st">"#cccccc"</span><span class="op">;</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>    <span class="dt">onEachFeature</span><span class="op">:</span> (feat<span class="op">,</span> layer) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> nome <span class="op">=</span> feat<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">Distrito</span><span class="op">;</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> vencedor <span class="op">=</span> <span class="fu">votosPorDistrito</span>(nome)[<span class="dv">0</span>]<span class="op">?.</span><span class="at">partido</span><span class="op">;</span></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>        layer<span class="op">.</span><span class="fu">bindTooltip</span>(feat<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">Distrito</span><span class="op">,</span> { <span class="dt">sticky</span><span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>        layer<span class="op">.</span><span class="fu">on</span>(<span class="st">'click'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>            mutable selectedDistrito <span class="op">=</span> nome<span class="op">;</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>        })<span class="op">;</span></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>            <span class="dt">fillColor</span><span class="op">:</span> cor<span class="op">,</span></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>            <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.8</span><span class="op">,</span></span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>            <span class="dt">color</span><span class="op">:</span> <span class="st">'#ffffff'</span><span class="op">,</span></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>            <span class="dt">opacity</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>        }<span class="op">;</span></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">addTo</span>(map1)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
 <div id="ojs-cell-1-14" data-nodetype="declaration" class="html-fill-item html-fill-container">
@@ -346,25 +341,128 @@ grid-auto-rows: minmax(0, 1fr);">
 </div>
 </div>
 </div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb3" data-startfrom="151" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 150;"><span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(<span class="fu">votosPorDistrito</span>(selectedDistrito)<span class="op">,</span> {</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>    <span class="dt">columns</span><span class="op">:</span> [<span class="st">"partido"</span><span class="op">,</span> <span class="st">"votos"</span>]<span class="op">,</span></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>    <span class="dt">header</span><span class="op">:</span> {</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>        <span class="dt">partido</span><span class="op">:</span> <span class="st">"Partido"</span><span class="op">,</span></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>        <span class="dt">votos</span><span class="op">:</span> <span class="st">"Votos"</span></span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div id="ojs-cell-2" data-nodetype="expression" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb4" data-startfrom="163" data-source-offset="-2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 162;"><span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>mutable selectedDistrito <span class="op">=</span> <span class="st">"Total"</span><span class="op">;</span></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>viewof selectedPartido <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(<span class="fu">getPartidos</span>()<span class="op">,</span> {</span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"Selecionar Partido"</span><span class="op">,</span></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="st">"PPD/PSD.CDS-PP"</span></span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>mapDiv2 <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="height: 400px;"&gt;&lt;/div&gt;`</span></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>map2 <span class="op">=</span> L<span class="op">.</span><span class="fu">map</span>(mapDiv2<span class="op">,</span> {</span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>    <span class="dt">zoomControl</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>    <span class="dt">dragging</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scrollWheelZoom</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">setView</span>([<span class="fl">39.752</span><span class="op">,</span> <span class="op">-</span><span class="fl">9.1</span>]<span class="op">,</span> <span class="dv">6</span>)<span class="op">;</span></span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>L<span class="op">.</span><span class="fu">tileLayer</span>(<span class="st">'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'</span>)<span class="op">.</span><span class="fu">addTo</span>(map2)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-15" data-nodetype="declaration" class="html-fill-item html-fill-container">
+<div id="ojs-cell-3-1" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-16" data-nodetype="declaration" class="html-fill-item html-fill-container">
+<div id="ojs-cell-3-2" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
 <div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-17" data-nodetype="declaration" class="html-fill-item html-fill-container">
+<div id="ojs-cell-3-3" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
 </div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-3-4" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-3-5" data-nodetype="expression" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb5" data-startfrom="179" data-source-offset="-433"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 178;"><span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a>distritos2 <span class="op">=</span> L<span class="op">.</span><span class="fu">geoJSON</span>(data<span class="op">,</span> {</span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> (feat) <span class="kw">=&gt;</span> {</span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> distrito <span class="op">=</span> feat<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">Distrito</span><span class="op">;</span></span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> intensidade <span class="op">=</span> <span class="fu">calcularIntensidade</span>(selectedPartido<span class="op">,</span> distrito)<span class="op">;</span></span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> scaledIntensity <span class="op">=</span> <span class="fl">0.3</span> <span class="op">+</span> (intensidade <span class="op">*</span> <span class="fl">3.5</span>)<span class="op">;</span></span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {</span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>            <span class="dt">fillColor</span><span class="op">:</span> <span class="fu">getPartyColors</span>()[selectedPartido]<span class="op">,</span></span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>            <span class="dt">fillOpacity</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="fl">1.0</span><span class="op">,</span> scaledIntensity)<span class="op">,</span></span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a>            <span class="dt">weight</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>            <span class="dt">color</span><span class="op">:</span> <span class="st">'#ffffff'</span><span class="op">,</span></span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>            <span class="dt">opacity</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>        }<span class="op">;</span></span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>    <span class="dt">onEachFeature</span><span class="op">:</span> (feat<span class="op">,</span> layer) <span class="kw">=&gt;</span> {</span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> nome <span class="op">=</span> feat<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">Distrito</span><span class="op">;</span></span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> votosPartido <span class="op">=</span> tbl[selectedPartido]<span class="op">?.</span>[nome] <span class="op">||</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>        layer<span class="op">.</span><span class="fu">bindTooltip</span>(feat<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">Distrito</span><span class="op">,</span> { <span class="dt">sticky</span><span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">addTo</span>(map2)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-3-6" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb6" data-startfrom="199" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 198;"><span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(<span class="fu">partyVotesByDistrict</span>(selectedPartido)<span class="op">,</span> {</span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a>    <span class="dt">columns</span><span class="op">:</span> [<span class="st">"distrito"</span><span class="op">,</span> <span class="st">"votos"</span>]<span class="op">,</span></span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>    <span class="dt">header</span><span class="op">:</span> {</span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a>        <span class="dt">distrito</span><span class="op">:</span> <span class="st">"Distrito"</span><span class="op">,</span></span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>        <span class="dt">votos</span><span class="op">:</span> <span class="st">"Votos"</span></span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div id="ojs-cell-4" data-nodetype="expression" class="html-fill-item html-fill-container">
+
 </div>
 </div>
 </div>
@@ -380,7 +478,7 @@ grid-auto-rows: minmax(0, 1fr);">
 
 
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuZGF0YSA9IEZpbGVBdHRhY2htZW50KFwiZGF0YS9Db250aW5lbnRlRGlzdHJpdG9zX2dlby5nZW9qc29uXCIpLmpzb24oKVxudGJsID0gRmlsZUF0dGFjaG1lbnQoXCJkYXRhL2xlZ2lzbGF0aXZhczEuanNvblwiKS5qc29uKClcblxubWFwRGl2ID0gaHRtbGA8ZGl2IHN0eWxlPVwiaGVpZ2h0OiA0MDBweDtcIj48L2Rpdj5gXG5cbm1hcCA9IEwubWFwKG1hcERpdiwge1xuICAgIHpvb21Db250cm9sOiB0cnVlLFxuICAgIGRyYWdnaW5nOiB0cnVlLFxuICAgIHNjcm9sbFdoZWVsWm9vbTogdHJ1ZVxufSkuc2V0VmlldyhbMzkuNzUyLCAtOS4xXSwgNik7XG5cbkwudGlsZUxheWVyKCdodHRwczovL3tzfS50aWxlLm9wZW5zdHJlZXRtYXAub3JnL3t6fS97eH0ve3l9LnBuZycpLmFkZFRvKG1hcCk7XG5cbmRpc3RyaXRvcyA9IEwuZ2VvSlNPTihkYXRhLCB7XG4gICAgc3R5bGU6IChmZWF0KSA9PiB7XG4gICAgICAgIGNvbnN0IGRpc3RyaXRvID0gZmVhdC5wcm9wZXJ0aWVzLkRpc3RyaXRvO1xuICAgICAgICBjb25zdCB2ZW5jZWRvciA9IHZvdG9zUG9yRGlzdHJpdG8oZGlzdHJpdG8pWzBdPy5wYXJ0aWRvO1xuICAgICAgICBjb25zdCBpbnRlbnNpZGFkZSA9IGNhbGN1bGFySW50ZW5zaWRhZGUoc2VsZWN0ZWRQYXJ0aWRvLCBkaXN0cml0byk7XG4gICAgICAgIHJldHVybiB7XG4gICAgICAgICAgICBmaWxsQ29sb3I6IGdldFBhcnR5Q29sb3JzKClbc2VsZWN0ZWRQYXJ0aWRvXSxcbiAgICAgICAgICAgIGZpbGxPcGFjaXR5OiBNYXRoLm1heCgwLjEsIGludGVuc2lkYWRlKVxuICAgICAgICB9O1xuICAgIH0sXG4gICAgb25FYWNoRmVhdHVyZTogKGZlYXQsIGxheWVyKSA9PiB7XG4gICAgICAgIGNvbnN0IG5vbWUgPSBmZWF0LnByb3BlcnRpZXMuRGlzdHJpdG87XG4gICAgICAgIGxheWVyLmJpbmRUb29sdGlwKGZlYXQucHJvcGVydGllcy5EaXN0cml0bywgeyBzdGlja3k6IHRydWUgfSk7XG4gICAgICAgIGxheWVyLm9uKCdjbGljaycsICgpID0+IHtcbiAgICAgICAgICAgIG11dGFibGUgc2VsZWN0ZWREaXN0cml0byA9IG5vbWU7XG4gICAgICAgIH0pO1xuICAgIH1cbn0pLmFkZFRvKG1hcCk7XG5cbmZ1bmN0aW9uIGdldFBhcnR5Q29sb3JzKCkge1xuICAgIHJldHVybiB7XG4gICAgICAgIFwiUFNcIjogXCIjZmYwMDAwXCIsICAgICAgICAgXG4gICAgICAgIFwiUFBEL1BTRC5DRFMtUFBcIjogXCIjZmY5OTAwXCIsXG4gICAgICAgIFwiQ0hcIjogXCIjMDAwMGZmXCIsICAgICAgICBcbiAgICAgICAgXCJJTFwiOiBcIiMwMGZmZmZcIiwgICAgICAgICBcbiAgICAgICAgXCJCLkUuXCI6IFwiI2ZmMDBmZlwiLCAgICAgXG4gICAgICAgIFwiUENQLVBFVlwiOiBcIiMwMDgwMDBcIiwgICAgICBcbiAgICAgICAgXCJMXCI6IFwiIzgwMDA4MFwiLCAgICAgICAgICBcbiAgICAgICAgXCJQQU5cIjogXCIjMDBmZjAwXCIsICAgICAgICAgXG4gICAgICAgIFwiQUROXCI6IFwiIzhCNDUxM1wiLCAgICAgICAgXG4gICAgICAgIFwiUi5JLlIuXCI6IFwiI0ZGRDcwMFwiLCAgICAgXG4gICAgICAgIFwiVlBcIjogXCIjRkY2OUI0XCIsICAgICAgICAgIFxuICAgICAgICBcIkpQUFwiOiBcIiMwMEJGRkZcIiwgICAgICAgIFxuICAgICAgICBcIkVcIjogXCIjQTUyQTJBXCIsICAgICAgIFxuICAgICAgICBcIlBQTVwiOiBcIiM0NjgyQjRcIiwgICAgICAgICAgXG4gICAgICAgIFwiTkNcIjogXCIjRkY0NTAwXCIsICAgICAgICAgIFxuICAgICAgICBcIk5EXCI6IFwiIzJFOEI1N1wiLCAgICAgICAgICAgXG4gICAgICAgIFwiUENUUC9NUlBQXCI6IFwiI0RDMTQzQ1wiLCAgIFxuICAgICAgICBcIlBMU1wiOiBcIiNEQUE1MjBcIiwgICAgICAgIFxuICAgICAgICBcIk1QVFwiOiBcIiMzMkNEMzJcIiwgICAgICAgIFxuICAgICAgICBcIlBUUFwiOiBcIiM4QTJCRTJcIiAgICAgICAgICBcbiAgICB9O1xufVxuXG5mdW5jdGlvbiB2b3Rvc1BvckRpc3RyaXRvKGRpc3RyaXRvTm9tZSkge1xuICAgIGNvbnN0IHJlc3VsdCA9IFtdO1xuICAgIGZvciAoY29uc3QgW3BhcnRpZG8sIGRpc3RyaXRvc10gb2YgT2JqZWN0LmVudHJpZXModGJsKSkge1xuICAgICAgICBpZiAocGFydGlkbyAhPT0gXCJJbnNjcml0b3NcIiAmJiBwYXJ0aWRvICE9PSBcIlZvdGFudGVzXCIpIHtcbiAgICAgICAgICAgIGNvbnN0IHZvdG9zID0gZGlzdHJpdG9zW2Rpc3RyaXRvTm9tZV07XG4gICAgICAgICAgICBpZiAodm90b3MgIT09IHVuZGVmaW5lZCkge1xuICAgICAgICAgICAgICAgIHJlc3VsdC5wdXNoKHsgcGFydGlkbywgdm90b3MgfSk7XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9XG4gICAgcmV0dXJuIHJlc3VsdC5zb3J0KChhLGIpID0+IGIudm90b3MgLSBhLnZvdG9zKTtcbn1cblxudmlld29mIHNlbGVjdGVkUGFydGlkbyA9IElucHV0cy5zZWxlY3QoZ2V0UGFydGlkb3MoKSwge1xuICAgIGxhYmVsOiBcIlNlbGVjaW9uYXIgUGFydGlkb1wiLFxufSk7XG5cbm11dGFibGUgc2VsZWN0ZWREaXN0cml0byA9IFwiVG90YWxcIjtcblxuSW5wdXRzLnRhYmxlKHZvdG9zUG9yRGlzdHJpdG8oc2VsZWN0ZWREaXN0cml0byksIHtcbiAgICBjb2x1bW5zOiBbXCJwYXJ0aWRvXCIsIFwidm90b3NcIl1cbn0pO1xuXG5mdW5jdGlvbiBzZWxlY3REaXN0cml0byhzZWxlY3RlZERpc3RyaXRvLCBkaXN0cml0bykge1xuICAgIGZvciAoY29uc3QgW3BhcnRpZG8sIGRpc3RyaXRvc10gb2YgT2JqZWN0LmVudHJpZXModGJsKSkge1xuICAgICAgICBpZiAoZGlzdHJpdG8gPT0gZGlzdHJpdG9zKSB7XG4gICAgICAgICAgICBzZWxlY3RlZERpc3RyaXRvID0gZGlzdHJpdG87XG4gICAgICAgICAgICB2b3Rvc1BvckRpc3RyaXRvKHNlbGVjdGVkRGlzdHJpdG8pO1xuICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgc2VsZWN0ZWREaXN0cml0byA9IFwiVG90YWxcIjtcbiAgICAgICAgfSBcbiAgICB9XG59XG5cbmZ1bmN0aW9uIGdldFBhcnRpZG9zKCkge1xuICAgIHJldHVybiBPYmplY3Qua2V5cyh0YmwpLmZpbHRlcihwYXJ0aWRvID0+IFxuICAgICAgICBwYXJ0aWRvICE9PSBcIkluc2NyaXRvc1wiICYmIHBhcnRpZG8gIT09IFwiVm90YW50ZXNcIlxuICAgICk7XG59XG5cbmZ1bmN0aW9uIHBhcnR5Vm90ZXNCeURpc3RyaWN0KHBhcnRpZG8pIHtcbiAgICBjb25zdCByZXN1bHQgPSBbXTtcbiAgICBjb25zdCBkYWRvc1BhcnRpZG8gPSB0YmxbcGFydGlkb107XG5cbiAgICBmb3IgKGNvbnN0IFtkaXN0cml0bywgdm90b3NdIG9mIE9iamVjdC5lbnRyaWVzKGRhZG9zUGFydGlkbykpIHtcbiAgICAgICAgcmVzdWx0LnB1c2goeyBkaXN0cml0bywgdm90b3MgfSk7XG5cbiAgICB9XG4gICAgcmV0dXJuIHJlc3VsdC5zb3J0KChhLCBiKSA9PiBiLnZvdG9zIC0gYS52b3Rvcyk7XG59XG5cbmZ1bmN0aW9uIGNhbGN1bGFySW50ZW5zaWRhZGUocGFydGlkbywgZGlzdHJpdG8pIHtcbiAgICBjb25zdCB2b3Rvc1BhcnRpZG8gPSB0YmxbcGFydGlkb10/LltkaXN0cml0b10gfHwgMDtcbiAgICBjb25zdCB2b3Rvc0Rpc3RyaXRvID0gdGJsW1wiVm90YW50ZXNcIl0/LltkaXN0cml0b10gfHwgMTtcbiAgICByZXR1cm4gdm90b3NQYXJ0aWRvIC8gdm90b3NEaXN0cml0bztcbn1cblxuYWJzdGVuY2FvID0gMTAwIC0gKHRibC5Wb3RhbnRlcy5Ub3RhbCAvIHRibC5JbnNjcml0b3MuVG90YWwgKiAxMDApO1xuXG5mdW5jdGlvbiBlbmNvbnRyYXJNZW5vckFic3RlbmNhbygpIHtcbiAgICBsZXQgbWVub3JUYXhhID0gMTAwO1xuICAgIGxldCBkaXN0cml0b01lbm9yID0gXCJcIjtcblxuICAgIGZvciAoY29uc3QgW2Rpc3RyaXRvLCBpbnNjcml0b3NdIG9mIE9iamVjdC5lbnRyaWVzKHRibC5JbnNjcml0b3MpKSB7XG4gICAgICAgIGlmIChkaXN0cml0byAhPT0gXCJUb3RhbFwiKSB7XG4gICAgICAgICAgICBjb25zdCB0YXhhID0gMTAwIC0gKHRibC5Wb3RhbnRlc1tkaXN0cml0b10gLyBpbnNjcml0b3MgKiAxMDApO1xuICAgICAgICAgICAgaWYgKHRheGEgPCBtZW5vclRheGEpIHtcbiAgICAgICAgICAgICAgICBtZW5vclRheGEgPSB0YXhhO1xuICAgICAgICAgICAgICAgIGRpc3RyaXRvTWVub3IgPSBkaXN0cml0bztcbiAgICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgIH1cbiAgICByZXR1cm4gZGlzdHJpdG9NZW5vcjtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnc2VsZWN0ZWRQYXJ0aWRvJykifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxyXG5kYXRhID0gRmlsZUF0dGFjaG1lbnQoXCJkYXRhL0NvbnRpbmVudGVEaXN0cml0b3NfZ2VvLmdlb2pzb25cIikuanNvbigpXHJcbnRibCA9IEZpbGVBdHRhY2htZW50KFwiZGF0YS9sZWdpc2xhdGl2YXMxLmpzb25cIikuanNvbigpXHJcblxyXG5mdW5jdGlvbiBnZXRQYXJ0eUNvbG9ycygpIHtcclxuICAgIHJldHVybiB7XHJcbiAgICAgICAgXCJQU1wiOiBcIiNmZjAwMDBcIiwgICAgICAgICBcclxuICAgICAgICBcIlBQRC9QU0QuQ0RTLVBQXCI6IFwiI2ZmOTkwMFwiLFxyXG4gICAgICAgIFwiQ0hcIjogXCIjMDAwMGZmXCIsICAgICAgICBcclxuICAgICAgICBcIklMXCI6IFwiIzAwZmZmZlwiLCAgICAgICAgIFxyXG4gICAgICAgIFwiQi5FLlwiOiBcIiNmZjAwZmZcIiwgICAgIFxyXG4gICAgICAgIFwiUENQLVBFVlwiOiBcIiMwMDgwMDBcIiwgICAgICBcclxuICAgICAgICBcIkxcIjogXCIjODAwMDgwXCIsICAgICAgICAgIFxyXG4gICAgICAgIFwiUEFOXCI6IFwiIzAwZmYwMFwiLCAgICAgICAgIFxyXG4gICAgICAgIFwiQUROXCI6IFwiIzhCNDUxM1wiLCAgICAgICAgXHJcbiAgICAgICAgXCJSLkkuUi5cIjogXCIjRkZENzAwXCIsICAgICBcclxuICAgICAgICBcIlZQXCI6IFwiI0ZGNjlCNFwiLCAgICAgICAgICBcclxuICAgICAgICBcIkpQUFwiOiBcIiMwMEJGRkZcIiwgICAgICAgIFxyXG4gICAgICAgIFwiRVwiOiBcIiNBNTJBMkFcIiwgICAgICAgXHJcbiAgICAgICAgXCJQUE1cIjogXCIjNDY4MkI0XCIsICAgICAgICAgIFxyXG4gICAgICAgIFwiTkNcIjogXCIjRkY0NTAwXCIsICAgICAgICAgIFxyXG4gICAgICAgIFwiTkRcIjogXCIjMkU4QjU3XCIsICAgICAgICAgICBcclxuICAgICAgICBcIlBDVFAvTVJQUFwiOiBcIiNEQzE0M0NcIiwgICBcclxuICAgICAgICBcIlBMU1wiOiBcIiNEQUE1MjBcIiwgICAgICAgIFxyXG4gICAgICAgIFwiTVBUXCI6IFwiIzMyQ0QzMlwiLCAgICAgICAgXHJcbiAgICAgICAgXCJQVFBcIjogXCIjOEEyQkUyXCIgICAgICAgICAgXHJcbiAgICB9O1xyXG59XHJcblxyXG5mdW5jdGlvbiB2b3Rvc1BvckRpc3RyaXRvKGRpc3RyaXRvTm9tZSkge1xyXG4gICAgY29uc3QgcmVzdWx0ID0gW107XHJcbiAgICBmb3IgKGNvbnN0IFtwYXJ0aWRvLCBkaXN0cml0b3NdIG9mIE9iamVjdC5lbnRyaWVzKHRibCkpIHtcclxuICAgICAgICBpZiAocGFydGlkbyAhPT0gXCJJbnNjcml0b3NcIiAmJiBwYXJ0aWRvICE9PSBcIlZvdGFudGVzXCIpIHtcclxuICAgICAgICAgICAgY29uc3Qgdm90b3MgPSBkaXN0cml0b3NbZGlzdHJpdG9Ob21lXTtcclxuICAgICAgICAgICAgaWYgKHZvdG9zICE9PSB1bmRlZmluZWQpIHtcclxuICAgICAgICAgICAgICAgIHJlc3VsdC5wdXNoKHsgcGFydGlkbywgdm90b3MgfSk7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcbiAgICB9XHJcbiAgICByZXR1cm4gcmVzdWx0LnNvcnQoKGEsYikgPT4gYi52b3RvcyAtIGEudm90b3MpO1xyXG59XHJcblxyXG5mdW5jdGlvbiBzZWxlY3REaXN0cml0byhzZWxlY3RlZERpc3RyaXRvLCBkaXN0cml0bykge1xyXG4gICAgZm9yIChjb25zdCBbcGFydGlkbywgZGlzdHJpdG9zXSBvZiBPYmplY3QuZW50cmllcyh0YmwpKSB7XHJcbiAgICAgICAgaWYgKGRpc3RyaXRvID09IGRpc3RyaXRvcykge1xyXG4gICAgICAgICAgICBzZWxlY3RlZERpc3RyaXRvID0gZGlzdHJpdG87XHJcbiAgICAgICAgICAgIHZvdG9zUG9yRGlzdHJpdG8oc2VsZWN0ZWREaXN0cml0byk7XHJcbiAgICAgICAgfSBlbHNlIHtcclxuICAgICAgICAgICAgc2VsZWN0ZWREaXN0cml0byA9IFwiVG90YWxcIjtcclxuICAgICAgICB9IFxyXG4gICAgfVxyXG59XHJcblxyXG5mdW5jdGlvbiBnZXRQYXJ0aWRvcygpIHtcclxuICAgIHJldHVybiBPYmplY3Qua2V5cyh0YmwpLmZpbHRlcihwYXJ0aWRvID0+IFxyXG4gICAgICAgIHBhcnRpZG8gIT09IFwiSW5zY3JpdG9zXCIgJiYgcGFydGlkbyAhPT0gXCJWb3RhbnRlc1wiXHJcbiAgICApO1xyXG59XHJcblxyXG5mdW5jdGlvbiBwYXJ0eVZvdGVzQnlEaXN0cmljdChwYXJ0aWRvKSB7XHJcbiAgICBjb25zdCByZXN1bHQgPSBbXTtcclxuICAgIGNvbnN0IGRhZG9zUGFydGlkbyA9IHRibFtwYXJ0aWRvXTtcclxuXHJcbiAgICBmb3IgKGNvbnN0IFtkaXN0cml0bywgdm90b3NdIG9mIE9iamVjdC5lbnRyaWVzKGRhZG9zUGFydGlkbykpIHtcclxuICAgICAgICByZXN1bHQucHVzaCh7IGRpc3RyaXRvLCB2b3RvcyB9KTtcclxuXHJcbiAgICB9XHJcbiAgICByZXR1cm4gcmVzdWx0LnNvcnQoKGEsIGIpID0+IGIudm90b3MgLSBhLnZvdG9zKTtcclxufVxyXG5cclxuZnVuY3Rpb24gY2FsY3VsYXJJbnRlbnNpZGFkZShwYXJ0aWRvLCBkaXN0cml0bykge1xyXG4gICAgY29uc3Qgdm90b3NQYXJ0aWRvID0gdGJsW3BhcnRpZG9dPy5bZGlzdHJpdG9dIHx8IDA7XHJcbiAgICBjb25zdCB2b3Rvc0Rpc3RyaXRvID0gdGJsW1wiVm90YW50ZXNcIl0/LltkaXN0cml0b10gfHwgMTtcclxuICAgIHJldHVybiB2b3Rvc1BhcnRpZG8gLyB2b3Rvc0Rpc3RyaXRvO1xyXG59XHJcblxyXG5hYnN0ZW5jYW8gPSAxMDAgLSAodGJsLlZvdGFudGVzLlRvdGFsIC8gdGJsLkluc2NyaXRvcy5Ub3RhbCAqIDEwMCk7XHJcblxyXG5mdW5jdGlvbiBlbmNvbnRyYXJNZW5vckFic3RlbmNhbygpIHtcclxuICAgIGxldCBtZW5vclRheGEgPSAxMDA7XHJcbiAgICBsZXQgZGlzdHJpdG9NZW5vciA9IFwiXCI7XHJcblxyXG4gICAgZm9yIChjb25zdCBbZGlzdHJpdG8sIGluc2NyaXRvc10gb2YgT2JqZWN0LmVudHJpZXModGJsLkluc2NyaXRvcykpIHtcclxuICAgICAgICBpZiAoZGlzdHJpdG8gIT09IFwiVG90YWxcIikge1xyXG4gICAgICAgICAgICBjb25zdCB0YXhhID0gMTAwIC0gKHRibC5Wb3RhbnRlc1tkaXN0cml0b10gLyBpbnNjcml0b3MgKiAxMDApO1xyXG4gICAgICAgICAgICBpZiAodGF4YSA8IG1lbm9yVGF4YSkge1xyXG4gICAgICAgICAgICAgICAgbWVub3JUYXhhID0gdGF4YTtcclxuICAgICAgICAgICAgICAgIGRpc3RyaXRvTWVub3IgPSBkaXN0cml0bztcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgIH1cclxuICAgIHJldHVybiBkaXN0cml0b01lbm9yO1xyXG59XHJcblxyXG5tYXBEaXYxID0gaHRtbGA8ZGl2IHN0eWxlPVwiaGVpZ2h0OiA0MDBweDtcIj48L2Rpdj5gXHJcblxyXG5tYXAxID0gTC5tYXAobWFwRGl2MSwge1xyXG4gICAgem9vbUNvbnRyb2w6IHRydWUsXHJcbiAgICBkcmFnZ2luZzogdHJ1ZSxcclxuICAgIHNjcm9sbFdoZWVsWm9vbTogdHJ1ZVxyXG59KS5zZXRWaWV3KFszOS43NTIsIC05LjFdLCA2KTtcclxuXHJcbkwudGlsZUxheWVyKCdodHRwczovL3tzfS50aWxlLm9wZW5zdHJlZXRtYXAub3JnL3t6fS97eH0ve3l9LnBuZycpLmFkZFRvKG1hcDEpO1xyXG5cclxuZGlzdHJpdG9zMSA9IEwuZ2VvSlNPTihkYXRhLCB7XHJcbiAgICBzdHlsZTogKGZlYXQpID0+IHtcclxuICAgICAgICBjb25zdCBkaXN0cml0byA9IGZlYXQucHJvcGVydGllcy5EaXN0cml0bztcclxuICAgICAgICBjb25zdCB2ZW5jZWRvciA9IHZvdG9zUG9yRGlzdHJpdG8oZGlzdHJpdG8pWzBdPy5wYXJ0aWRvO1xyXG4gICAgICAgIGNvbnN0IGNvciA9IGdldFBhcnR5Q29sb3JzKClbdmVuY2Vkb3JdIHx8IFwiI2NjY2NjY1wiO1xyXG4gICAgICAgXHJcbiAgICB9LFxyXG4gICAgb25FYWNoRmVhdHVyZTogKGZlYXQsIGxheWVyKSA9PiB7XHJcbiAgICAgICAgY29uc3Qgbm9tZSA9IGZlYXQucHJvcGVydGllcy5EaXN0cml0bztcclxuICAgICAgICBjb25zdCB2ZW5jZWRvciA9IHZvdG9zUG9yRGlzdHJpdG8obm9tZSlbMF0/LnBhcnRpZG87XHJcbiAgICAgICAgbGF5ZXIuYmluZFRvb2x0aXAoZmVhdC5wcm9wZXJ0aWVzLkRpc3RyaXRvLCB7IHN0aWNreTogdHJ1ZSB9KTtcclxuICAgICAgICBsYXllci5vbignY2xpY2snLCAoKSA9PiB7XHJcbiAgICAgICAgICAgIG11dGFibGUgc2VsZWN0ZWREaXN0cml0byA9IG5vbWU7XHJcbiAgICAgICAgfSk7XHJcbiAgICAgICAgcmV0dXJuIHtcclxuICAgICAgICAgICAgZmlsbENvbG9yOiBjb3IsXHJcbiAgICAgICAgICAgIGZpbGxPcGFjaXR5OiAwLjgsXHJcbiAgICAgICAgICAgIGNvbG9yOiAnI2ZmZmZmZicsXHJcbiAgICAgICAgICAgIG9wYWNpdHk6IDFcclxuICAgICAgICB9O1xyXG4gICAgfVxyXG59KS5hZGRUbyhtYXAxKTtcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiSW5wdXRzLnRhYmxlKHZvdG9zUG9yRGlzdHJpdG8oc2VsZWN0ZWREaXN0cml0byksIHtcclxuICAgIGNvbHVtbnM6IFtcInBhcnRpZG9cIiwgXCJ2b3Rvc1wiXSxcclxuICAgIGhlYWRlcjoge1xyXG4gICAgICAgIHBhcnRpZG86IFwiUGFydGlkb1wiLFxyXG4gICAgICAgIHZvdG9zOiBcIlZvdG9zXCJcclxuICAgIH1cclxufSk7XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxyXG5tdXRhYmxlIHNlbGVjdGVkRGlzdHJpdG8gPSBcIlRvdGFsXCI7XHJcbnZpZXdvZiBzZWxlY3RlZFBhcnRpZG8gPSBJbnB1dHMuc2VsZWN0KGdldFBhcnRpZG9zKCksIHtcclxuICAgIGxhYmVsOiBcIlNlbGVjaW9uYXIgUGFydGlkb1wiLFxyXG4gICAgdmFsdWU6IFwiUFBEL1BTRC5DRFMtUFBcIlxyXG59KTtcclxuXHJcbm1hcERpdjIgPSBodG1sYDxkaXYgc3R5bGU9XCJoZWlnaHQ6IDQwMHB4O1wiPjwvZGl2PmBcclxuXHJcbm1hcDIgPSBMLm1hcChtYXBEaXYyLCB7XHJcbiAgICB6b29tQ29udHJvbDogdHJ1ZSxcclxuICAgIGRyYWdnaW5nOiB0cnVlLFxyXG4gICAgc2Nyb2xsV2hlZWxab29tOiB0cnVlXHJcbn0pLnNldFZpZXcoWzM5Ljc1MiwgLTkuMV0sIDYpO1xyXG5cclxuTC50aWxlTGF5ZXIoJ2h0dHBzOi8ve3N9LnRpbGUub3BlbnN0cmVldG1hcC5vcmcve3p9L3t4fS97eX0ucG5nJykuYWRkVG8obWFwMik7XHJcblxyXG5kaXN0cml0b3MyID0gTC5nZW9KU09OKGRhdGEsIHtcclxuICAgIHN0eWxlOiAoZmVhdCkgPT4ge1xyXG4gICAgICAgIGNvbnN0IGRpc3RyaXRvID0gZmVhdC5wcm9wZXJ0aWVzLkRpc3RyaXRvO1xyXG4gICAgICAgIGNvbnN0IGludGVuc2lkYWRlID0gY2FsY3VsYXJJbnRlbnNpZGFkZShzZWxlY3RlZFBhcnRpZG8sIGRpc3RyaXRvKTtcclxuICAgICAgICBjb25zdCBzY2FsZWRJbnRlbnNpdHkgPSAwLjMgKyAoaW50ZW5zaWRhZGUgKiAzLjUpO1xyXG4gICAgICAgIHJldHVybiB7XHJcbiAgICAgICAgICAgIGZpbGxDb2xvcjogZ2V0UGFydHlDb2xvcnMoKVtzZWxlY3RlZFBhcnRpZG9dLFxyXG4gICAgICAgICAgICBmaWxsT3BhY2l0eTogTWF0aC5taW4oMS4wLCBzY2FsZWRJbnRlbnNpdHkpLFxyXG4gICAgICAgICAgICB3ZWlnaHQ6IDIsXHJcbiAgICAgICAgICAgIGNvbG9yOiAnI2ZmZmZmZicsXHJcbiAgICAgICAgICAgIG9wYWNpdHk6IDFcclxuICAgICAgICB9O1xyXG4gICAgfSxcclxuICAgIG9uRWFjaEZlYXR1cmU6IChmZWF0LCBsYXllcikgPT4ge1xyXG4gICAgICAgIGNvbnN0IG5vbWUgPSBmZWF0LnByb3BlcnRpZXMuRGlzdHJpdG87XHJcbiAgICAgICAgY29uc3Qgdm90b3NQYXJ0aWRvID0gdGJsW3NlbGVjdGVkUGFydGlkb10/Lltub21lXSB8fCAwO1xyXG4gICAgICAgIGxheWVyLmJpbmRUb29sdGlwKGZlYXQucHJvcGVydGllcy5EaXN0cml0bywgeyBzdGlja3k6IHRydWUgfSk7XHJcbiAgICB9XHJcbn0pLmFkZFRvKG1hcDIpO1xyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJJbnB1dHMudGFibGUocGFydHlWb3Rlc0J5RGlzdHJpY3Qoc2VsZWN0ZWRQYXJ0aWRvKSwge1xyXG4gICAgY29sdW1uczogW1wiZGlzdHJpdG9cIiwgXCJ2b3Rvc1wiXSxcclxuICAgIGhlYWRlcjoge1xyXG4gICAgICAgIGRpc3RyaXRvOiBcIkRpc3RyaXRvXCIsXHJcbiAgICAgICAgdm90b3M6IFwiVm90b3NcIlxyXG4gICAgfVxyXG59KTtcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdzZWxlY3RlZFBhcnRpZG8nKSJ9XX0=
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
