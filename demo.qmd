@@ -23,6 +23,16 @@ format:
 data = FileAttachment("data/ContinenteDistritos_geo.geojson").json()
 tbl = FileAttachment("data/legislativas1.json").json()
 
+resetButton = html`
+<button style="margin: 10px 0;">
+    Votos Totais
+</button>
+`
+
+resetButton.onclick = () => {
+    mutable selectedDistrito = "Total";
+};
+
 function getPartyColors() {
     return {
         "PS": "#ff0000",         
@@ -48,13 +58,22 @@ function getPartyColors() {
     };
 }
 
+function norm(str) {
+    return str
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+}
+
 function votosPorDistrito(distritoNome) {
+    const d = norm(distritoNome);
     const result = [];
     for (const [partido, distritos] of Object.entries(tbl)) {
         if (partido !== "Inscritos" && partido !== "Votantes") {
-            const votos = distritos[distritoNome];
-            if (votos !== undefined) {
-                result.push({ partido, votos });
+            for(const [dist, votos] of Object.entries(distritos)) {
+                if (norm(dist) === d) {
+                    result.push({ partido, votos });
+                }
             }
         }
     }
@@ -127,9 +146,8 @@ distritos1 = L.geoJSON(data, {
     style: (feat) => {
         const distrito = feat.properties.Distrito;
         const vencedor = votosPorDistrito(distrito)[0]?.partido;
-        const cor = getPartyColors()[vencedor] || "#cccccc";
         return {
-            fillColor: cor,
+            fillColor: getPartyColors()[vencedor] || "#cccccc",
             fillOpacity: 0.8,
             color: '#ffffff',
             opacity: 1
@@ -144,6 +162,8 @@ distritos1 = L.geoJSON(data, {
         });
     }
 }).addTo(map1);
+
+
 ```
 
 
@@ -183,7 +203,6 @@ distritos2 = L.geoJSON(data, {
         return {
             fillColor: getPartyColors()[selectedPartido],
             fillOpacity: Math.min(1.0, scaledIntensity),
-            weight: 2,
             color: '#ffffff',
             opacity: 1
         };
