@@ -2,7 +2,7 @@
 title: "Portugal - Legislativas 2025"
 format:
     dashboard:
-        orientation: columns
+        orientation: rows
         scrolling: true
 ---
 
