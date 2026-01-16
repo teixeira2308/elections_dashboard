@@ -1,9 +1,10 @@
 ---
 title: "Portugal - Legislativas 2025"
+author: Tiago Teixeira, Jaime Rodrigues
 format:
     dashboard:
-        orientation: rows
         scrolling: true
+        theme: dark
 ---
 
 
@@ -17,17 +18,17 @@ format:
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 
-
+## Row {height=100%}
 ```{ojs}
 
-data = FileAttachment("data/ContinenteDistritos_geo.geojson").json()
-tbl = FileAttachment("data/legislativas1.json").json()
+data = FileAttachment("data/ContinenteDistritos_geo.geojson").json();
+tbl = FileAttachment("data/legislativas1.json").json();
 
 resetButton = html`
 <button style="margin: 10px 0;">
     Votos Totais
 </button>
-`
+`;
 
 resetButton.onclick = () => {
     mutable selectedDistrito = "Total";
@@ -132,13 +133,13 @@ function encontrarMenorAbstencao() {
     return distritoMenor;
 }
 
-mapDiv1 = html`<div style="height: 400px;"></div>`
+mapDiv1 = html`<div style="height: 650px;"></div>`;
 
 map1 = L.map(mapDiv1, {
     zoomControl: true,
     dragging: true,
     scrollWheelZoom: true
-}).setView([39.752, -9.1], 6);
+}).setView([39.752, -9.1], 6.5);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map1);
 
@@ -162,8 +163,6 @@ distritos1 = L.geoJSON(data, {
         });
     }
 }).addTo(map1);
-
-
 ```
 
 
@@ -177,6 +176,7 @@ Inputs.table(votosPorDistrito(selectedDistrito), {
 });
 ``` 
 
+## Row {height=100%}
 ```{ojs}
 
 mutable selectedDistrito = "Total";
@@ -185,13 +185,13 @@ viewof selectedPartido = Inputs.select(getPartidos(), {
     value: "PPD/PSD.CDS-PP"
 });
 
-mapDiv2 = html`<div style="height: 400px;"></div>`
+mapDiv2 = html`<div style="height: 650px;"></div>`
 
 map2 = L.map(mapDiv2, {
     zoomControl: true,
     dragging: true,
     scrollWheelZoom: true
-}).setView([39.752, -9.1], 6);
+}).setView([39.752, -9.1], 6.5);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map2);
 
