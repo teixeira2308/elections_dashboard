@@ -141,7 +141,7 @@ map1 = L.map(mapDiv1, {
     scrollWheelZoom: true
 }).setView([39.752, -9.1], 6.5);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map1);
+void L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map1);
 
 distritos1 = L.geoJSON(data, {
     style: (feat) => {
