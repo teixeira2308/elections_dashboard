@@ -109,12 +109,6 @@ function partyVotesByDistrict(partido) {
     return result.sort((a, b) => b.votos - a.votos);
 }
 
-function calcularIntensidade(partido, distrito) {
-    const votosPartido = tbl[partido]?.[distrito] || 0;
-    const votosDistrito = tbl["Votantes"]?.[distrito] || 1;
-    return votosPartido / votosDistrito;
-}
-
 abstencao = 100 - (tbl.Votantes.Total / tbl.Inscritos.Total * 100);
 
 function encontrarMenorAbstencao() {
@@ -178,6 +172,41 @@ Inputs.table(votosPorDistrito(selectedDistrito), {
 
 ## Row {height=100%}
 ```{ojs}
+function getVotosPartidoDistrito(partido, distritoNome) {
+    const d = norm(distritoNome);
+
+    const distritos = tbl[partido];
+    if (!distritos) return 0;
+
+    for (const [dist, votos] of Object.entries(distritos)) {
+        if (norm(dist) === d) {
+            const v = Number(votos);
+            return isNaN(v) ? 0 : v;
+        }
+    }
+    return 0;
+}
+
+function getVotantesDistrito(distritoNome) {
+    const d = norm(distritoNome);
+
+    for (const [dist, votos] of Object.entries(tbl.Votantes)) {
+        if (norm(dist) === d) {
+            const v = Number(votos);
+            return isNaN(v) ? 0 : v;
+        }
+    }
+    return 0;
+}
+
+function calcularIntensidade(partido, distrito){
+    const votosPartido = getVotosPartidoDistrito(partido, distrito);
+    const votosDistrito = getVotantesDistrito(distrito);
+
+    if (votosDistrito === 0) return 0;
+
+    return votosPartido / votosDistrito;
+}
 
 mutable selectedDistrito = "Total";
 viewof selectedPartido = Inputs.select(getPartidos(), {
@@ -193,15 +222,17 @@ map2 = L.map(mapDiv2, {
     scrollWheelZoom: true
 }).setView([39.752, -9.1], 6.5);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map2);
+//mapa do mundo
+void L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map2);
 
 distritos2 = L.geoJSON(data, {
     style: (feat) => {
         const distrito = feat.properties.Distrito;
         const intensidade = calcularIntensidade(selectedPartido, distrito);
-        const scaledIntensity = 0.3 + (intensidade * 3.5);
+        const scaledIntensity = intensidade * 2;
+
         return {
-            fillColor: getPartyColors()[selectedPartido],
+            fillColor: getPartyColors()[selectedPartido] || "#cccccc",
             fillOpacity: Math.min(1.0, scaledIntensity),
             color: '#ffffff',
             opacity: 1
