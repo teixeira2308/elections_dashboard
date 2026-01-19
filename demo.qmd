@@ -274,6 +274,8 @@ Inputs.table(partyVotesByDistrict(selectedPartido), {
 
 ### Sunburst
 ```{ojs}
+x = 1;
+/*
 chart = {
   // Specify the chart’s dimensions.
   const width = 928;
@@ -396,4 +398,5 @@ chart = {
 
   return svg.node();
 }
+*/
 ```
